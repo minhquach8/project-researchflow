@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <header class="rf-header">
+    <div class="rf-title">
+      {{ doc.metadata.get("title") or "Untitled document" }}
+    </div>
+
+    <div class="rf-meta">
+      <div class="rf-meta-pill">
+        {{ doc.metadata.get("type") or "note" }}
+      </div>
+      {% if doc.metadata.get("date") %}
+        <div class="rf-meta-pill">
+          {{ doc.metadata["date"] }}
+        </div>
+      {% endif %}
+
+      {% set tags = doc.metadata.get("tags") %}
+      {% if tags %}
+        <div class="rf-tags">
+          {% for tag in tags %}
+            <span class="rf-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <section class="rf-content">
+    {% for html_block in blocks_html %}
+      {{ html_block | safe }}
+    {% endfor %}
+  </section>
+{% endblock %}
+
