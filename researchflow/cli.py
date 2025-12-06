@@ -5,10 +5,14 @@ from pathlib import Path
 import typer
 
 from .site import build_site
+from .scaffold import create_experiment, create_note
 
 app = typer.Typer(
     help="ResearchFlow - Python-first research publishing engine (MVP v0.1).",
 )
+
+new_app = typer.Typer(help="Create new .rflow documents.")
+app.add_typer(new_app, name="new")
 
 
 @app.command("build")
@@ -39,6 +43,49 @@ def build(
     build_site(workspace, final_build_dir)
 
     typer.echo("✅ Build completed.")
+
+
+@new_app.command("note")
+def new_note(
+    title: str = typer.Argument(
+        ...,
+        help="Title of the new note.",
+    ),
+    workspace: Path = typer.Option(
+        Path("."),
+        "--workspace",
+        "-w",
+        help="Path to the workspace (default: current directory).",
+    ),
+) -> None:
+    """
+    Create a new note `.rflow` file under `notes/` with a minimal template.
+    """
+    workspace = workspace.resolve()
+    path = create_note(workspace, title)
+    typer.echo(f"✅ Created note: {path}")
+
+
+@new_app.command("exp")
+def new_experiment(
+    title: str = typer.Argument(
+        ...,
+        help="Title of the new experiment.",
+    ),
+    workspace: Path = typer.Option(
+        Path("."),
+        "--workspace",
+        "-w",
+        help="Path to the workspace (default: current directory).",
+    ),
+) -> None:
+    """
+    Create a new experiment `.rflow` file under `experiments/`
+    with a scaffold tailored for experiments.
+    """
+    workspace = workspace.resolve()
+    path = create_experiment(workspace, title)
+    typer.echo(f"✅ Created experiment: {path}")
 
 
 if __name__ == "__main__":
