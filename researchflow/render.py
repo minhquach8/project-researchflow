@@ -4,6 +4,7 @@ from dataclasses import asdict
 from html import escape
 from pathlib import Path
 from typing import Any
+import markdown
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -16,6 +17,27 @@ from .model import (
     RFlowDocument,
     SummaryBlock,
 )
+
+
+def render_markdown_to_html(markdown_text: str) -> str:
+    """
+    Convert markdown text into HTML using Python-Markdown.
+
+    For MVP v0.1 we keep the configuration minimal:
+    - basic markdown syntax
+    - fenced code blocks
+    - tables (useful for experiment results)
+
+    Later we can add more extensions if needed.
+    """
+    return markdown.markdown(
+        markdown_text,
+        extensions=[
+            "fenced_code",
+            "tables",
+        ],
+        output_format="html",
+    )
 
 
 def _create_jinja_environment() -> Environment:
@@ -110,10 +132,8 @@ def _render_block(block: Block) -> str:
         )
 
     if isinstance(block, MarkdownBlock):
-        # Temporary behaviour: show raw markdown as-is.
-        # A later step will introduce a markdown renderer.
-        content = escape(block.content)
-        return f"<div class='rf-block-markdown'>{content}</div>"
+        html = render_markdown_to_html(block.content)
+        return f"<div class='rf-block-markdown'>{html}</div>"
 
     # Fallback: unknown block type → escaped repr
     content = escape(repr(block))
