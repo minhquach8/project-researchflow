@@ -108,10 +108,19 @@ def _render_block(block: Block) -> str:
         )
 
     if isinstance(block, FigureBlock):
-        # We escape caption and alt, but path is assumed to be a safe relative URL.
+        # Normalise path so that "assets/..." becomes "/assets/..."
+        raw_path = (block.path or "").strip()
+
+        if raw_path.startswith("/"):
+            normalised_path = raw_path
+        else:
+            # For MVP v0.1 we treat figure paths as site-root relative.
+            # This makes "assets/..." resolve to "/assets/..." when served from build/.
+            normalised_path = f"/{raw_path}" if raw_path else ""
+
+        src = escape(normalised_path)
         alt = escape(block.alt) if block.alt else ""
         caption = escape(block.caption) if block.caption else ""
-        src = escape(block.path)
         caption_html = (
             f"<div class='rf-block-figure-caption'>{caption}</div>" if caption else ""
         )

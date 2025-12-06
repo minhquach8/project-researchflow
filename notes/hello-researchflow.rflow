@@ -1,0 +1,76 @@
+---
+title: Hello ResearchFlow
+type: note
+tags: [intro, researchflow]
+date: 2025-12-06
+summary: "Quick tour of the ResearchFlow MVP v0.1."
+slug: hello-researchflow
+---
+
+# Hello ResearchFlow
+
+This is a **demo note** to verify that the MVP v0.1 build pipeline is working
+from end to end.
+
+We will try:
+
+- normal markdown headings and lists,
+- a `summary` block,
+- a `figure` block,
+- a `log` block,
+- a `code` block.
+
+:::summary
+ResearchFlow MVP v0.1 provides:
+
+- a simple `.rflow` format (YAML + Markdown + marker blocks),
+- a site generator for notes and experiments,
+- a modern dark theme,
+- CLI commands: `new`, `build`, `serve`.
+:::
+
+## Section 1 – Basic markdown
+
+Here is a list:
+
+- item 1
+- item 2
+- item 3
+
+And some inline code: `x = 42`.
+
+## Section 2 – Figure block
+
+Below is a `figure` block that will point to an image inside `assets/`.
+
+:::figure
+path: /assets/confusion-matrix.png
+caption: Confusion matrix of a toy classifier.
+alt: Confusion matrix heatmap.
+:::
+
+## Section 3 – Log block
+
+Sometimes we want to show training logs or console output.
+
+:::log
+epoch=1  loss=0.523  acc=0.72
+epoch=2  loss=0.431  acc=0.78
+epoch=3  loss=0.389  acc=0.81
+:::
+
+## Section 4 – Code block
+
+And finally a `code` block with a tiny Python example.
+
+:::code
+lang: python
+caption: Simple training loop (pseudo-code).
+
+def train(model, data_loader, epochs: int = 3) -> None:
+    for epoch in range(1, epochs + 1):
+        loss = 0.0
+        for batch in data_loader:
+            loss += model.step(batch)
+        print(f"epoch={epoch}  loss={loss:.3f}")
+:::

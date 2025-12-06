@@ -1,0 +1,58 @@
+---
+title: Experiment 001 – Baseline Logistic Regression
+type: experiment
+tags: [ml, baseline, logistic-regression]
+date: 2025-12-06
+summary: "Baseline logistic regression model on a toy dataset."
+slug: exp-001-baseline-logreg
+---
+
+# Experiment 001 – Baseline Logistic Regression
+
+:::summary
+This experiment trains a baseline logistic regression model on a small
+binary classification dataset to validate the end-to-end experiment
+reporting workflow in ResearchFlow.
+:::
+
+## Objective
+
+- Verify that the full pipeline from experiment design → training → logging
+  → `.rflow` report → website is working.
+- Establish a simple baseline accuracy for comparison with future models.
+
+## Setup
+
+- Data: toy binary dataset with 2D features.
+- Model: logistic regression.
+- Metrics: accuracy on a small validation split.
+
+:::code
+lang: python
+caption: Sketch of the baseline training code.
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+def run_baseline(X_train, y_train, X_val, y_val) -> float:
+    model = LogisticRegression()
+    model.fit(X_train, y_train)
+    preds = model.predict(X_val)
+    return accuracy_score(y_val, preds)
+:::
+
+## Results
+
+:::log
+val_accuracy = 0.82
+notes = "Baseline is reasonably strong for a toy dataset."
+:::
+
+## Notes
+
+- This is only a sketch; the main purpose is to test that experiments
+  render nicely in the ResearchFlow site.
+- Future experiments may add:
+  - more metrics (F1, AUC),
+  - plots (ROC curve),
+  - links to code or datasets.

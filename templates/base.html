@@ -185,23 +185,35 @@
         }
 
         .rf-block-figure {
-            padding: 12px 14px 10px;
-            border-radius: var(--rf-radius-md);
-            border: 1px dashed rgba(148, 163, 184, 0.6);
-            background: radial-gradient(circle at top left, #020617, #020617);
-            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+
+            /* new: make figure wide */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .rf-block-figure img {
-            max-width: 100%;
-            border-radius: 12px;
-            display: block;
-            margin: 0 auto 8px;
+            max-width: min(100%, 800px);
+            /* allow scaling to container */
+            width: 700px;
+            /* preferred visual size */
+            height: auto;
+            /* maintain aspect ratio */
+            border-radius: 8px;
+            /* optional */
         }
 
         .rf-block-figure-caption {
-            font-size: 0.82rem;
-            color: var(--rf-muted);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            max-width: 80%;
         }
 
         .rf-block-log {

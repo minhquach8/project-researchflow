@@ -1,0 +1,32 @@
+---
+title: Experiment 001 – Baseline CNN
+type: experiment
+tags: []
+date: 2025-12-06
+summary: ""
+slug: experiment-001-baseline-cnn
+---
+
+# Experiment 001 – Baseline CNN
+
+:::summary
+Short summary of this experiment.
+:::
+
+## Objective
+
+Describe the main question or hypothesis here.
+
+## Setup
+
+- Data:
+- Model:
+- Metrics:
+
+## Results
+
+Summarise key findings here.
+
+## Notes
+
+Additional observations, caveats, or follow-up ideas.
