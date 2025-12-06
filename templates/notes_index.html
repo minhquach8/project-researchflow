@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <header class="rf-header">
+    <div class="rf-title">
+      Notes
+    </div>
+    <div class="rf-meta">
+      <div class="rf-meta-pill">
+        {{ items|length }} notes
+      </div>
+    </div>
+  </header>
+
+  <section class="rf-content">
+    {% if items %}
+      <ul class="rf-list">
+        {% for item in items %}
+          <li class="rf-list-item">
+            <a class="rf-list-link" href="{{ item.url }}">
+              <span class="rf-list-title">{{ item.title }}</span>
+              {% if item.date %}
+                <span class="rf-list-meta">{{ item.date }}</span>
+              {% endif %}
+            </a>
+            {% if item.summary %}
+              <p class="rf-list-summary">{{ item.summary }}</p>
+            {% endif %}
+            {% if item.tags %}
+              <div class="rf-list-tags">
+                {% for tag in item.tags %}
+                  <a class="rf-tag rf-tag-link" href="../tags/{{ tag }}/">
+                    {{ tag }}
+                  </a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No notes found.</p>
+    {% endif %}
+  </section>
+{% endblock %}
+

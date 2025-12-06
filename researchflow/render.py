@@ -62,6 +62,16 @@ def _create_jinja_environment() -> Environment:
 _ENV = _create_jinja_environment()
 
 
+def get_template_environment() -> Environment:
+    """
+    Expose the shared Jinja2 Environment used by ResearchFlow.
+
+    The site generator reuses this environment to render index pages
+    so that all templates share the same configuration and loader.
+    """
+    return _ENV
+
+
 def render_document(doc: RFlowDocument) -> str:
     """
     Render a single RFlowDocument into a full HTML page string.
